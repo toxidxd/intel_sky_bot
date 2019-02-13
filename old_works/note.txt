@@ -1,3 +1,0 @@
-Зависимость для spynner
-sudo apt install python3-pyside
-sudo apt install pyqt***

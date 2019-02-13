@@ -1,4 +1,3 @@
-
 import selenium
 import pickle
 from selenium import webdriver
