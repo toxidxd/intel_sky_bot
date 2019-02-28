@@ -8,7 +8,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-updater = Updater(token='****') # Токен API к Telegram
+updater = Updater(token='*******') # Токен API к Telegram
 dispatcher = updater.dispatcher
 
 print("Hello, shit!")
@@ -24,12 +24,12 @@ print("Bot initialized")
 #################
 
 
-def start_command(bot, update):
+def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Hello, Mr.Shit. I'm work!")
 
 
 def give_screen(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text="10sec")
+    #bot.send_message(chat_id=update.message.chat_id, text="10sec")
     link = "https://intel.ingress.com/intel?ll=46.848378,40.304031&z=15"
     #driver = webdriver.Chrome()
     #driver.get(link)
@@ -42,15 +42,29 @@ def give_screen(bot, update):
     driver.save_screenshot("./screen.png")
     #driver.quit()
     scr = open("screen.png", "rb")
-    bot.send_message(chat_id=update.message.chat_id, text="na tebe screeeen")
+    #bot.send_message(chat_id=update.message.chat_id, text="na tebe screeeen")
     bot.send_photo(chat_id=update.message.chat_id, photo=scr)
     time.sleep(1)
     scr = open("screen.png", "rb")
-    bot.send_document(chat_id=update.message.chat_id, document=scr)
+    #bot.send_document(chat_id=update.message.chat_id, document=scr)
 
+def location(bot, update):
+    print(update.message.location)
+    lat = str(update.message.location.latitude)
+    lon = str(update.message.location.longitude)
+    link = "https://intel.ingress.com/intel?ll=" + lat + "," + lon + "&z=15"
+    driver.get(link)
+    time.sleep(10)
+    driver.save_screenshot("./screen.png")
+    #driver.quit()
+    scr = open("screen.png", "rb")
+    #bot.send_message(chat_id=update.message.chat_id, text="na tebe screeeen")
+    bot.send_photo(chat_id=update.message.chat_id, photo=scr)
+    time.sleep(1)
+    scr = open("screen.png", "rb")
 
 # Хендлеры
-start_command_handler = CommandHandler('start', start_command)
+start_command_handler = CommandHandler('start', start)
 give_screen_command_handler = CommandHandler('give_screen', give_screen)
 
 
@@ -58,6 +72,7 @@ give_screen_command_handler = CommandHandler('give_screen', give_screen)
 dispatcher.add_handler(start_command_handler)
 dispatcher.add_handler(give_screen_command_handler)
 
+dispatcher.add_handler(MessageHandler(Filters.location, location))
 
 
 
