@@ -8,7 +8,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-updater = Updater(token='*******') # Токен API к Telegram
+updater = Updater(token='*****') # Токен API к Telegram
 dispatcher = updater.dispatcher
 
 print("Hello, shit!")
@@ -26,7 +26,7 @@ print("Bot initialized")
 
 def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="Hello, Mr.Shit. I'm work!")
-
+    bot.send_message(chat_id=update.message.chat_id, text="Отправь мне координаты, а я верну тебе скрин карты")
 
 def give_screen(bot, update):
     #bot.send_message(chat_id=update.message.chat_id, text="10sec")
